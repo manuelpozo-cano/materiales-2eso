@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Materiales de Uso Técnico y sus Propiedades | Tecnología 2º ESO</title>
+  
+  <!-- Tipografía moderna Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-app: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      
+      --brand-primary: #2563eb;
+      --brand-light: #eff6ff;
+      --brand-border: #bfdbfe;
+      
+      --mec-primary: #d97706;
+      --mec-light: #fef3c7;
+      --mec-border: #fde68a;
+
+      --eco-primary: #059669;
+      --eco-light: #d1fae5;
+      --eco-border: #a7f3d0;
+
+      --tech-primary: #7c3aed;
+      --tech-light: #f3e8ff;
+      --tech-border: #ddd6fe;
+
+      --success: #10b981;
+      --danger: #ef4444;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+    body { background-color: var(--bg-app); color: var(--text-main); line-height: 1.6; padding-bottom: 60px; }
+
+    /* Estilos de Impresión / PDF */
+    @media print {
+      header, nav, .btn-print, .quiz-section, .flashcard-section, .no-print { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .container { max-width: 100% !important; margin: 0 !important; }
+      .card { background: white !important; color: black !important; border: 1px solid #cbd5e1 !important; box-shadow: none !important; page-break-inside: avoid; }
+      .section-title { color: #0f172a !important; border-left-color: #0f172a !important; }
+      .grid-2, .grid-3 { display: block !important; }
+      .item-box { margin-bottom: 12px; page-break-inside: avoid; }
+      .box-img { display: none !important; }
+    }
+
+    /* Cabecera Principal */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 28px; position: sticky; top: 0; z-index: 1000;
+      box-shadow: var(--shadow-sm);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon { font-size: 2.2rem; }
+    .brand h1 { font-size: 1.3rem; color: var(--text-main); font-weight: 800; }
+    .brand p { font-size: 0.82rem; color: var(--brand-primary); font-weight: 700; }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+    .btn-print {
+      background: linear-gradient(135deg, #059669, #10b981); color: white; border: none;
+      padding: 9px 18px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+      transition: all 0.2s;
+    }
+    .btn-print:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(5, 150, 105, 0.35); }
+
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-btn {
+      background: #f1f5f9; border: 1px solid var(--border-color); color: var(--text-muted);
+      padding: 7px 13px; border-radius: 8px; text-decoration: none; font-size: 0.84rem; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover, .nav-btn.active { background: var(--brand-primary); color: #ffffff; border-color: var(--brand-primary); }
+
+    /* Layout General */
+    .container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
+
+    .section-title {
+      font-size: 1.45rem; color: var(--text-main); margin: 36px 0 18px 0; display: flex; align-items: center; gap: 10px;
+      border-left: 5px solid var(--brand-primary); padding-left: 14px; font-weight: 800;
+    }
+    .title-mec { border-left-color: var(--mec-primary); }
+    .title-eco { border-left-color: var(--eco-primary); }
+    .title-tech { border-left-color: var(--tech-primary); }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 22px;
+      margin-bottom: 22px; box-shadow: var(--shadow-sm); transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+
+    /* Tarjetas e Imágenes */
+    .item-box { border-radius: 14px; padding: 16px; border: 1px solid var(--border-color); background: #f8fafc; transition: all 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+    .item-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: #ffffff; }
+    
+    .box-img {
+      width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .box-brand { background: var(--brand-light); border-color: var(--brand-border); }
+    .box-mec { background: var(--mec-light); border-color: var(--mec-border); }
+    .box-eco { background: var(--eco-light); border-color: var(--eco-border); }
+    .box-tech { background: var(--tech-light); border-color: var(--tech-border); }
+
+    .badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;
+      text-transform: uppercase; margin-bottom: 8px; background: #ffffff; color: var(--text-main); align-self: flex-start;
+    }
+
+    /* Pestañas */
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+    .tab-btn {
+      background: #f1f5f9; border: 1px solid var(--border-color); color: var(--text-muted);
+      padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; white-space: nowrap;
+    }
+    .tab-btn.active { background: var(--brand-primary); color: #ffffff; border-color: var(--brand-primary); }
+
+    /* Flashcard y Quiz */
+    .flashcard {
+      background: #ffffff; border: 2px solid var(--brand-primary); border-radius: 14px; padding: 22px; text-align: center;
+      min-height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .quiz-option {
+      background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-bottom: 8px;
+      cursor: pointer; transition: all 0.2s; font-size: 0.9rem; text-align: left; width: 100%; color: #0f172a; font-weight: 600;
+    }
+    .quiz-option:hover { border-color: var(--brand-primary); background: var(--brand-light); }
+  </style>
+</head>
+<body>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header>
+    <div class="brand">
+      <span class="brand-icon">📦🪵⚙️</span>
+      <div>
+        <h1>Los Materiales de Uso Técnico y sus Propiedades</h1>
+        <p>Tecnología y Digitalización • 2º ESO | Unidad Didáctica</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-print" onclick="window.print()">📥 Descargar / Imprimir Apuntes en PDF</button>
+      <nav>
+        <a href="#sec-intro" class="nav-btn active">Introducción</a>
+        <a href="#sec-clasificacion" class="nav-btn">1. Clasificación</a>
+        <a href="#sec-propiedades" class="nav-btn">2. Propiedades</a>
+        <a href="#sec-repaso" class="nav-btn">Repaso Interactivo</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- INTRODUCCIÓN: PROCESO Y ORIGEN DE LAS MATERIAS PRIMAS -->
+    <section id="sec-intro">
+      <h2 class="section-title">Introducción a los Materiales de Uso Técnico</h2>
+      
+      <!-- PROCESO DE TRANSFORMACIÓN -->
+      <div class="card">
+        <h3 style="color: var(--brand-primary); margin-bottom: 8px; font-weight: 800;">🔄 El Proceso de Transformación Tecnológica</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Para obtener cualquier objeto tecnológico se sigue una secuencia en tres fases:
+        </p>
+
+        <div class="grid-3">
+          <div class="item-box box-brand">
+            <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=500&q=80" alt="Bosque y madera" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--brand-primary);">Etapa 1</span>
+              <h4 style="font-size:0.95rem; font-weight:800;">🌿 Materia Prima</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Sustancia extraída directamente de la naturaleza sin procesar.<br><b>Ejemplos:</b> Tronco de árbol, mineral de hierro, lana, petróleo.</p>
+            </div>
+          </div>
+
+          <div class="item-box box-brand">
+            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=500&q=80" alt="Tableros de madera procesada" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--brand-primary);">Etapa 2</span>
+              <h4 style="font-size:0.95rem; font-weight:800;">🧱 Material Técnico</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Materia prima transformada industrialmente en formatos comerciales.<br><b>Ejemplos:</b> Tableros de madera, vigas de acero, granza de plástico.</p>
+            </div>
+          </div>
+
+          <div class="item-box box-brand">
+            <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=500&q=80" alt="Silla de madera terminada" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--brand-primary);">Etapa 3</span>
+              <h4 style="font-size:0.95rem; font-weight:800;">📱 Producto Tecnológico</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Objeto final fabricado para responder a una necesidad concreta.<br><b>Ejemplos:</b> Silla de estudio, tijeras, abrigo, estantería.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORIGEN DE LAS MATERIAS PRIMAS -->
+      <div class="card">
+        <h3 style="color: var(--eco-primary); margin-bottom: 8px; font-weight: 800;">🌱 Origen de las Materias Primas</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Según su procedencia en la naturaleza, las materias primas se clasifican en tres grupos principales:
+        </p>
+
+        <div class="grid-3">
+          <div class="item-box box-eco">
+            <img src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=500&q=80" alt="Lana de oveja animal" class="box-img">
+            <div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--eco-primary);">🐾 1. Origen Animal</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Se obtienen de distintas partes del cuerpo de los animales.<br><b>Ejemplos:</b> Lana (ovejas), seda (gusanos), cuero y pieles (ganado), plumas.</p>
+            </div>
+          </div>
+
+          <div class="item-box box-eco">
+            <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=500&q=80" alt="Planta de algodón vegetal" class="box-img">
+            <div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--eco-primary);">🌿 2. Origen Vegetal</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Se obtienen directamente de árboles, plantas y cultivos.<br><b>Ejemplos:</b> Madera y celulosa (árboles), algodón, lino, corcho, caucho natural.</p>
+            </div>
+          </div>
+
+          <div class="item-box box-eco">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="Minerales y rocas" class="box-img">
+            <div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--eco-primary);">⛏️ 3. Origen Mineral</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">Se obtienen de la corteza terrestre (rocas, suelos y yacimientos).<br><b>Ejemplos:</b> Minerales metálicos (hierro, cobre), arcilla, mármol, petróleo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASIFICACIÓN DE LOS MATERIALES: NATURALES, TRANSFORMADOS Y SINTÉTICOS -->
+    <section id="sec-clasificacion">
+      <h2 class="section-title title-tech">1. Clasificación de los Materiales</h2>
+
+      <div class="card">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Según el grado de modificación o proceso químico que sufren para su obtención, los materiales se dividen en:
+        </p>
+
+        <div class="grid-3">
+          <div class="item-box box-tech">
+            <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=500&q=80" alt="Piedras naturales y tronco de madera" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--tech-primary);">Grupo A</span>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--tech-primary);">🍃 Materiales Naturales</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">
+                Se encuentran en la naturaleza y se usan casi tal como se recogen, sin alterar su composición.<br><br>
+                <b>Ejemplos:</b> Madera en bruto, piedra de granito, mármol, algodón, lana, esparto.
+              </p>
+            </div>
+          </div>
+
+          <div class="item-box box-tech">
+            <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=500&q=80" alt="Vasos de vidrio y objetos metálicos transformados" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--tech-primary);">Grupo B</span>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--tech-primary);">⚙️ Materiales Transformados</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">
+                Se obtienen sometiendo las materias primas a procesos físicos o químicos para cambiar su forma o propiedades.<br><br>
+                <b>Ejemplos:</b> Vidrio (de la arena), metales (del mineral), papel, cerámica, cemento.
+              </p>
+            </div>
+          </div>
+
+          <div class="item-box box-tech">
+            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80" alt="Materiales sintéticos y polímeros" class="box-img">
+            <div>
+              <span class="badge" style="color: var(--tech-primary);">Grupo C</span>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--tech-primary);">🧪 Materiales Sintéticos</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted);">
+                Son fabricados artificialmente por el ser humano mediante reacciones químicas complejas.<br><br>
+                <b>Ejemplos:</b> Plásticos (PET, PVC), fibras sintéticas (nailon, poliéster), siliconas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUNTO 2: PROPIEDADES DE LOS MATERIALES -->
+    <section id="sec-propiedades">
+      <h2 class="section-title title-mec">2. Propiedades de los Materiales</h2>
+
+      <div class="card">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+          Las **propiedades** son el conjunto de características que hacen que un material se comporte de una forma determinada ante estímulos externos (la luz, el calor, las fuerzas o el medio ambiente).
+        </p>
+
+        <!-- PESTAÑAS DE PROPIEDADES -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="showPropTab('fisico', this)">⚡ Físico-Químicas</button>
+          <button class="tab-btn" onclick="showPropTab('mecanicas', this)">🔨 Mecánicas</button>
+          <button class="tab-btn" onclick="showPropTab('tecnologicas', this)">🛠️ Tecnológicas</button>
+          <button class="tab-btn" onclick="showPropTab('sensoriales', this)">👁️ Sensoriales</button>
+          <button class="tab-btn" onclick="showPropTab('ecologicas', this)">🌱 Ecológicas</button>
+        </div>
+
+        <!-- 2.1 FÍSICO-QUÍMICAS -->
+        <div id="tab-fisico">
+          <div class="grid-3">
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Conductividad Eléctrica</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Capacidad de transmitir corriente eléctrica.<br><b>Conductores:</b> Metales (cobre, aluminio).<br><b>Aislantes:</b> Plásticos, madera, cerámica.</p>
+            </div>
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Conductividad Térmica</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Capacidad de transmitir el calor.<br><b>Conductores térmicos:</b> Metales.<br><b>Aislantes térmicos:</b> Madera, corcho, lana de roca.</p>
+            </div>
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Densidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Relación entre la masa del material y su volumen. Materiales ligeros (aluminio, plástico) vs. densos (plomo, hierro).</p>
+            </div>
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Comportamiento Óptico</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Transparentes:</b> Dejan pasar la luz.<br><b>Translúcidos:</b> Dejan pasar luz pero borrosa.<br><b>Opacos:</b> No dejan pasar la luz.</p>
+            </div>
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Dilatación Térmica</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Aumento de tamaño (volumen) cuando aumenta su temperatura. Se contrae al enfriarse.</p>
+            </div>
+            <div class="item-box box-brand">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--brand-primary);">Oxidación y Punto de Fusión</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Oxidación:</b> Reacción química con el oxígeno.<br><b>Punto de Fusión:</b> Temperatura a la que pasa de sólido a líquido.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.2 MECÁNICAS -->
+        <div id="tab-mecanicas" style="display: none;">
+          <div class="grid-3">
+            <div class="item-box box-mec">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--mec-primary);">Dureza</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Resistencia que opone un material a ser rayado o penetrado por otro. El **diamante** es el más duro; el **talco y el yeso** los más blandos.</p>
+            </div>
+            <div class="item-box box-mec">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--mec-primary);">Tenacidad vs. Fragilidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Tenaz:</b> Soporta golpes o impactos sin romperse (acero).<br><b>Frágil:</b> Se rompe fácilmente al chocar o caerse (vidrio, cerámica).</p>
+            </div>
+            <div class="item-box box-mec">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--mec-primary);">Elasticidad vs. Plasticidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Elástico:</b> Recupera su forma original al cesar la fuerza (goma).<br><b>Plástico:</b> Deformación permanente al aplicarle fuerzas (plastilina).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.3 TECNOLÓGICAS -->
+        <div id="tab-tecnologicas" style="display: none;">
+          <div class="grid-3">
+            <div class="item-box box-tech">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--tech-primary);">Maleabilidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Capacidad de deformarse en **láminas finas** sin romperse (ej. papel de aluminio, chapa de oro).</p>
+            </div>
+            <div class="item-box box-tech">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--tech-primary);">Ductilidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Capacidad de transformarse en **hilos o alambres** al estirarse (ej. hilo de cobre en cables).</p>
+            </div>
+            <div class="item-box box-tech">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--tech-primary);">Fusibilidad y Soldabilidad</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Fusibilidad:</b> Facilidad para fundirse.<br><b>Soldabilidad:</b> Permite unir piezas por calor.<br><b>Mecanizabilidad:</b> Facilidad para ser cortado o moldeado.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.4 SENSORIALES -->
+        <div id="tab-sensoriales" style="display: none;">
+          <div class="grid-3">
+            <div class="item-box">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--text-main);">👁️ Vista, Tacto y Olfato</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Impresión percibida a través de los sentidos humanos:<br>• <b>Color y Brillo:</b> Aspecto del objeto.<br>• <b>Textura:</b> Suave, rugosa, áspera.<br>• <b>Olor:</b> Aromas característicos (madera, cuero).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.5 ECOLÓGICAS -->
+        <div id="tab-ecologicas" style="display: none;">
+          <div class="grid-3">
+            <div class="item-box box-eco">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--eco-primary);">♻️ Reciclables</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Se pueden procesar para volver a fabricar nuevos materiales (papel, vidrio, plásticos termoplásticos, metales).</p>
+            </div>
+            <div class="item-box box-eco">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--eco-primary);">🌱 Biodegradables</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Se descomponen de forma natural con el tiempo por acción de bacterias u organismos sin contaminar (madera, lana).</p>
+            </div>
+            <div class="item-box box-eco">
+              <h4 style="font-size:0.9rem; font-weight:800; color:var(--eco-primary);">⚠️ Tóxicos y Reutilizables</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted);"><b>Tóxicos:</b> Nocivos para la salud o el medio ambiente (plomo, mercurio).<br><b>Reutilizables:</b> Se pueden volver a usar con el mismo fin.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTOEVALUACIÓN -->
+    <section id="sec-repaso" class="no-print">
+      <h2 class="section-title">Zona de Repaso y Autoevaluación</h2>
+
+      <!-- FLASHCARDS -->
+      <div class="card flashcard-section">
+        <h3 style="color: var(--brand-primary); margin-bottom: 10px; font-weight: 800;">🎴 Flashcards de Repaso Rápido</h3>
+        <div class="flashcard" id="flashcardBox" onclick="rotateFlashcard()">
+          <span style="font-size: 0.75rem; color: var(--brand-primary); font-weight: 800; margin-bottom: 4px;">CLIC PARA VER LA RESPUESTA</span>
+          <h3 id="flashQ" style="font-size: 1.05rem; color: #0f172a; font-weight: 800;">¿De qué tres orígenes pueden proceder las materias primas?</h3>
+          <p id="flashA" style="font-size: 0.95rem; color: #059669; font-weight: 800; display: none; margin-top: 6px;">Pueden ser de origen ANIMAL, VEGETAL o MINERAL.</p>
+        </div>
+        <button onclick="nextFlashcard()" style="margin-top: 12px; background: var(--brand-primary); color: #ffffff; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 800; cursor: pointer;">Siguiente Pregunta ➔</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="card quiz-section">
+        <h3 style="color: var(--eco-primary); margin-bottom: 10px; font-weight: 800;">📝 Cuestionario Rápido (5 Preguntas)</h3>
+        
+        <div id="quizContainer">
+          <p style="font-weight: 800; font-size: 0.95rem; margin-bottom: 12px;" id="quizQText">1. Las materias primas como la lana o el cuero son de origen...</p>
+          <div id="quizOptions"></div>
+        </div>
+        
+        <div id="quizResult" style="margin-top: 14px; font-weight: 800; font-size: 1.05rem; color: var(--success); display: none;"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Pestañas de propiedades
+    function showPropTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('tab-fisico').style.display = 'none';
+      document.getElementById('tab-mecanicas').style.display = 'none';
+      document.getElementById('tab-tecnologicas').style.display = 'none';
+      document.getElementById('tab-sensoriales').style.display = 'none';
+      document.getElementById('tab-ecologicas').style.display = 'none';
+
+      document.getElementById('tab-' + tabId).style.display = 'block';
+    }
+
+    // Flashcards
+    const flashcards = [
+      { q: "¿De qué tres orígenes pueden proceder las materias primas?", a: "Pueden ser de origen ANIMAL, VEGETAL o MINERAL." },
+      { q: "¿Qué es un material Sintético?", a: "Aquel fabricado artificialmente por el ser humano mediante procesos químicos, como los plásticos." },
+      { q: "¿Qué mide la DUREZA de un material?", a: "La resistencia que opone a ser rayado o penetrado por otro." },
+      { q: "¿Qué diferencia a un material elástico de uno plástico?", a: "El elástico recupera su forma original al retirar la fuerza; el plástico se queda deformado." },
+      { q: "¿En qué consiste la Maleabilidad?", a: "En la capacidad de deformarse en láminas o chapas finas sin romperse." }
+    ];
+    let currentFlash = 0;
+
+    function rotateFlashcard() {
+      const a = document.getElementById('flashA');
+      a.style.display = (a.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function nextFlashcard() {
+      currentFlash = (currentFlash + 1) % flashcards.length;
+      document.getElementById('flashQ').textContent = flashcards[currentFlash].q;
+      document.getElementById('flashA').textContent = flashcards[currentFlash].a;
+      document.getElementById('flashA').style.display = 'none';
+    }
+
+    // Quiz
+    const quizData = [
+      { q: "1. Las materias primas como la lana o el cuero son de origen...", opts: ["A) Animal", "B) Vegetal", "C) Mineral"], correct: 0 },
+      { q: "2. ¿A qué grupo pertenecen los plásticos por ser creados mediante síntesis química?", opts: ["A) Naturales", "B) Transformados", "C) Sintéticos"], correct: 2 },
+      { q: "3. ¿Qué propiedad opuesta a la fragilidad permite a un material soportar golpes sin romperse?", opts: ["A) Dureza", "B) Tenacidad", "C) Elasticidad"], correct: 1 },
+      { q: "4. ¿Cuál de los siguientes se considera un MATERIAL NATURAL?", opts: ["A) Papel", "B) Piedra de granito", "C) Botella de plástico"], correct: 1 },
+      { q: "5. ¿Qué propiedad tecnológica permite transformar un metal en hilos finos?", opts: ["A) Maleabilidad", "B) Ductilidad", "C) Fusibilidad"], correct: 1 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    function renderQuiz() {
+      const q = quizData[currentQ];
+      document.getElementById('quizQText').textContent = q.q;
+      const optsDiv = document.getElementById('quizOptions');
+      optsDiv.innerHTML = '';
+
+      q.opts.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt;
+        btn.onclick = () => answerQuiz(idx);
+        optsDiv.appendChild(btn);
+      });
+    }
+
+    function answerQuiz(selected) {
+      const q = quizData[currentQ];
+      if (selected === q.correct) score++;
+
+      currentQ++;
+      if (currentQ < quizData.length) {
+        renderQuiz();
+      } else {
+        document.getElementById('quizContainer').style.display = 'none';
+        const res = document.getElementById('quizResult');
+        res.style.display = 'block';
+        res.textContent = `🎉 ¡Cuestionario finalizado! Aciertos: ${score} de ${quizData.length}.`;
+      }
+    }
+
+    window.onload = renderQuiz;
+  </script>
+</body>
+</html>
